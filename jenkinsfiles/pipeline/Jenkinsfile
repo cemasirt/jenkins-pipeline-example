@@ -13,14 +13,14 @@ node{
   stage ('Deploy app in HML') {
     sh "docker rm -f app-hml &>/dev/null && sleep 1 && docker run --name=app-hml -p 8085:8085 --net jenkins-pipeline-example_default -e SPRING_PROFILES_ACTIVE=hml -d cemasirt/jenkins-pipeline-example:hml"
   }
-/*
+
   stage ('UI Tests') {
     withEnv(["JAVA_HOME=${ tool "java-8" }", "PATH+MAVEN=${ tool "maven" }/bin:${env.JAVA_HOME}/bin"]) {
         sh "sleep 5"
         sh "mvn verify -Pui-tests"
     }   
   }
-*/
+
   stage ('Build and Deploy PRD image') {
     sh "docker tag cemasirt/jenkins-pipeline-example:hml cemasirt/jenkins-pipeline-example:prd"
 
